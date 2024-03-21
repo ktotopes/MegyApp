@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Order>
@@ -26,7 +27,8 @@ class OrderFactory extends Factory
             'email' => $this->faker->email,
             'phone' => $this->faker->phoneNumber,
             'delivery' => $this->faker->sentence,
-            'addresses' => $this->faker->address
+            'location' => new Point($this->faker->latitude, $this->faker->longitude),
+            'name' => $this->faker->name,
         ];
     }
 }

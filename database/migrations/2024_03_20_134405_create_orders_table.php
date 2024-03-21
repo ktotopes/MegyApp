@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('delivery');
-            $table->string('addresses');
+
+            $table->string('name');
+            $table->point('location');
 
             $table->timestamps();
         });

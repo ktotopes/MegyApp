@@ -13,6 +13,8 @@ class CeoInfoSeeder extends Seeder
      */
     public function run(): void
     {
-        CeoInfo::factory()->count(1)->create();
+        CeoInfo::factory()
+            ->count(1)
+            ->create();
     }
 }

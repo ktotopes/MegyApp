@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\QuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class QuestionController extends Controller
 {
@@ -16,12 +17,7 @@ class QuestionController extends Controller
 
         return response()->json([
             'message' => 'Question created successfully.',
-            'question' => $question
+            'question' => $question,
         ]);
-    }
-
-    public function reloadCaptcha()
-    {
-        return response()->json(['captcha' => captcha_img('math')]);
     }
 }

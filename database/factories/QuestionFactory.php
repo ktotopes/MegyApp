@@ -18,7 +18,6 @@ class QuestionFactory extends Factory
     {
         return [
             'answer' => $this->faker->text(100),
-            'captcha' => $this->faker->text(15),
         ];
     }
 }

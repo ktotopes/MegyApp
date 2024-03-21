@@ -20,7 +20,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return $request->user();
     });
     Route::post('/question', [\App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
-    Route::get('/reload-captcha', [\App\Http\Controllers\QuestionController::class, 'reloadCaptcha'])->name('reload-captcha');
+    Route::group(['prefix' => 'home-page'],function (){
+        Route::get('/main', [\App\Http\Controllers\HomePageController::class, 'main'])->name('main');
+        Route::get('/contact', [\App\Http\Controllers\HomePageController::class, 'contact'])->name('contact');
+        Route::get('/partner', [\App\Http\Controllers\HomePageController::class, 'partner'])->name('partner');
+        Route::get('/popularQuestion', [\App\Http\Controllers\HomePageController::class, 'popularQuestion'])->name('popularQuestion');
+        Route::get('/ceo', [\App\Http\Controllers\HomePageController::class, 'ceo'])->name('ceo');
+    });
 });
 
 require __DIR__ . '/auth.php';

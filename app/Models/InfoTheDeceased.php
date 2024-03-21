@@ -29,8 +29,8 @@ class InfoTheDeceased extends Model
         return $this->morphOne(DeadManText::class, 'textable');
     }
 
-    public function Deceased():HasOne
+    public function user():HasOne
     {
-        return $this->hasOne(Deceased::class);
+        return $this->hasOne(User::class);
     }
 }

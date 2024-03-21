@@ -13,6 +13,8 @@ class InfoTheDeceasedSeeder extends Seeder
      */
     public function run(): void
     {
-        InfoTheDeceased::factory()->count(10)->create();
+        InfoTheDeceased::factory()
+            ->count(10)
+            ->create();
     }
 }

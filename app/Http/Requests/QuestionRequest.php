@@ -23,7 +23,6 @@ class QuestionRequest extends FormRequest
     {
         return [
             'answer' => ['required','string'],
-            'captcha' => ['required','captcha'],
         ];
     }
 }

@@ -17,6 +17,8 @@ class InfoTheDeceasedFactory extends Factory
     public function definition(): array
     {
         return [
+            'fio' => $this->faker->name,
+            'slug' => $this->faker->slug,
             'photo' => $this->faker->imageUrl(640, 480, 'animals', true),
             'title' => $this->faker->title,
             'dateDeath' => $this->faker->date(),

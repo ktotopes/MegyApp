@@ -13,6 +13,8 @@ class DeadManTextSeeder extends Seeder
      */
     public function run(): void
     {
-        DeadManText::factory()->count(10)->create();
+        DeadManText::factory()
+            ->count(10)
+            ->create();
     }
 }
