@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\InfoTheDeceased;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -27,7 +28,6 @@ class UserController extends AdminController
         $grid = new Grid(new User());
 
         $grid->column('id', __('Id'));
-        $grid->column('infoTheDeceased', __('info_the_deceased_Id'));
         $grid->column('name', __('Name'));
         $grid->column('email', __('Email'));
         $grid->column('email_verified_at', __('Email verified at'));
@@ -70,12 +70,16 @@ class UserController extends AdminController
     {
         $form = new Form(new User());
 
+        $info_the_deceased = new InfoTheDeceased();
+        $info_the_deceased->save();
+
+        $form->hidden('info_the_deceased_id')->value($info_the_deceased->id);
+
         $form->text('name', __('Name'));
         $form->email('email', __('Email'));
         $form->datetime('email_verified_at', __('Email verified at'))->default(date('Y-m-d H:i:s'));
-        $form->password('password', __('Password'));
+        $form->password('password')->value(request()->get('password'));
         $form->text('remember_token', __('Remember token'));
-
         return $form;
     }
 }

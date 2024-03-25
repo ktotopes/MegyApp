@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -14,23 +15,33 @@ class InfoTheDeceased extends Model
 
     protected $guarded = [];
 
-    public function image(): MorphMany
+    protected $casts = [
+        'dateBirthday' => 'date',
+        'dateDeath' => 'date',
+    ];
+
+    public function images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function video(): MorphMany
+    public function videos(): MorphMany
     {
         return $this->morphMany(Video::class, 'videoable');
     }
 
-    public function DeadManText(): MorphOne
+    public function texts(): MorphMany
     {
-        return $this->morphOne(DeadManText::class, 'textable');
+        return $this->MorphMany(DeadManText::class, 'textable');
     }
 
     public function user():HasOne
     {
         return $this->hasOne(User::class);
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

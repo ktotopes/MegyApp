@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\OrderDelivery;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
 
             $table->bigInteger('price');
             $table->bigInteger('discountPrice');
@@ -21,9 +22,9 @@ return new class extends Migration
             $table->string('fio');
             $table->string('email');
             $table->string('phone');
-            $table->string('delivery');
+            $table->string('delivery')->default(OrderDelivery::СДЭК);
 
-            $table->string('name');
+            $table->string('address');
             $table->point('location');
 
             $table->timestamps();

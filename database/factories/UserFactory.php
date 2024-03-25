@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\InfoTheDeceased;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -25,11 +26,10 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'info_the_deceased_id' => InfoTheDeceased::query()->inRandomOrder()->first()?->id,
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => fake()->text(20),
+            'password' => 'admin',
             'remember_token' => Str::random(10),
         ];
     }

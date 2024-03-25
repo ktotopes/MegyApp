@@ -19,7 +19,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::query()->inRandomOrder()->first()?->id,
+            'user_id' => User::query()->inRandomOrder()->first()?->id ?? User::factory(),
             'price' => $this->faker->numberBetween(100, 1000),
             'discountPrice' => $this->faker->numberBetween(100, 1000) / 1.5,
             'count' => $this->faker->numberBetween(1, 10),
@@ -28,7 +28,7 @@ class OrderFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'delivery' => $this->faker->sentence,
             'location' => new Point($this->faker->latitude, $this->faker->longitude),
-            'name' => $this->faker->name,
+            'address' => $this->faker->address,
         ];
     }
 }

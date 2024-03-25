@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->text('text');
+            $table->integer('block_number')->nullable();
             $table->integer('textable_id');
             $table->string('textable_type');
-
 
             $table->timestamps();
         });

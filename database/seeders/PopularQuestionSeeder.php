@@ -13,8 +13,7 @@ class PopularQuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        PopularQuestion::factory()
-            ->count(10)
+        PopularQuestion::factory(5)
             ->create();
     }
 }

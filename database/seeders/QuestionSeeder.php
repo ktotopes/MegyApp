@@ -13,8 +13,7 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        Question::factory()
-            ->count(10)
+        Question::factory(5)
             ->create();
     }
 }

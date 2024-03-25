@@ -19,7 +19,7 @@ class DeadManTextFactory extends Factory
     {
         return [
             'text' =>  $this->faker->text(),
-            'textable_id' =>  InfoTheDeceased::factory()->create()->id,
+            'textable_id' =>  InfoTheDeceased::factory()->create()?->id ?? InfoTheDeceased::factory(),
             'textable_type' => InfoTheDeceased::class
         ];
     }

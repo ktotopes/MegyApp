@@ -13,8 +13,7 @@ class HomePageSeeder extends Seeder
      */
     public function run(): void
     {
-        HomePage::factory()
-            ->count(1)
+        HomePage::factory(1)
             ->create();
     }
 }

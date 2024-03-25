@@ -13,7 +13,6 @@ class PartnersSeeder extends Seeder
      */
     public function run(): void
     {
-        Partners::factory()
-            ->count(3)
+        Partners::factory(3)
             ->create();}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,11 +16,24 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
-        $request->authenticate();
+        //$request->authenticate();
 
         //$request->session()->regenerate();
 
-        $token = $request->user()->createToken($request->user()->name)->plainTextToken;
+        $credentials = request(['email', 'password']);
+
+        $user = User::query()
+            ->where('email',$credentials['email'])
+            ->where('password',$credentials['password'])
+            ->first();
+
+        if ($user->email !== $credentials['email'] && $user->password !== $credentials['password']) {
+            return response()->json([
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
             'token' => $token,
