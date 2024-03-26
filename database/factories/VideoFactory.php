@@ -2,12 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\InfoTheDeceased;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\HomePage>
- */
-class HomePageFactory extends Factory
+class VideoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +15,9 @@ class HomePageFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->title,
-            'description' => $this->faker->text,
-            'link' => $this->faker->url,
+            'path' => $this->faker->imageUrl(640, 480),
+            'videoable_id' => InfoTheDeceased::factory(),
+            'videoable_type' => InfoTheDeceased::class,
         ];
     }
 }

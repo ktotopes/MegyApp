@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             QuestionSeeder::class,
             PartnersSeeder::class,
             ContactSeeder::class,
-            HomePageSeeder::class,
+            PageSeeder::class,
+            VideoSeeder::class,
+            ImageSeeder::class,
         ]);
 
         User::factory([

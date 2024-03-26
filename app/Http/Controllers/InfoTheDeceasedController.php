@@ -22,7 +22,6 @@ class InfoTheDeceasedController extends Controller
 
     public function update(InfoTheDeceasedRequest $request)
     {
-        dd(explodeCoordinates($request->input('location')));
         $photoPath = null;
         $backgroudImgPath = null;
 
@@ -42,6 +41,8 @@ class InfoTheDeceasedController extends Controller
             Storage::delete(str_replace('storage', 'public', $info->background_img));
         }
 
+        $location[] = explode(',', $request->input('coordinates'));
+
         $info->update([
             ...$request->validated(),
             'photo' => str_replace('public', 'storage', $photoPath),
@@ -52,11 +53,11 @@ class InfoTheDeceasedController extends Controller
             'coordinates' => new Point($location[0][0], $location[0][1]),
         ]);
 
-       $this->uploadImages(InfoTheDeceased::class);
-      //  $this->uploadVideos(InfoTheDeceased::class);
+        $this->uploadImages(InfoTheDeceased::class);
+        $this->uploadVideos(InfoTheDeceased::class);
         $this->createDeadManText($request);
 
-        //  qrCodeCreate();
+        qrCodeCreate();
 
         return response()->json(
             new InfoTheDeceasedResource($info->load('videos', 'images', 'texts')),

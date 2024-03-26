@@ -1,6 +1,7 @@
 <?php
 
 use App\Admin\Controllers\UserController;
+use App\Admin\Controllers\PageController;
 use Illuminate\Routing\Router;
 
 Admin::routes();
@@ -14,5 +15,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('users', UserController::class);
+    $router->resource('pages', PageController::class);
 
 });

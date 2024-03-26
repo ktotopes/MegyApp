@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CeoInfo;
 use App\Models\Contact;
-use App\Models\HomePage;
+use App\Models\Page;
 use App\Models\Partners;
 use App\Models\PopularQuestion;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class HomePageController extends Controller
 {
     public function main()
     {
-        return response()->json(HomePage::all());
+        return response()->json(Page::all());
     }
 
     public function contact()

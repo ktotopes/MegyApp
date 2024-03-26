@@ -23,11 +23,11 @@ class AuthenticatedSessionController extends Controller
         $credentials = request(['email', 'password']);
 
         $user = User::query()
-            ->where('email',$credentials['email'])
-            ->where('password',$credentials['password'])
+            ->where('email', $credentials['email'])
+            ->where('password', $credentials['password'])
             ->first();
 
-        if ($user->email !== $credentials['email'] && $user->password !== $credentials['password']) {
+        if (! $user) {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);

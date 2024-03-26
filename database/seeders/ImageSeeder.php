@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\HomePage;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
-class HomePageSeeder extends Seeder
+class ImageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        HomePage::factory(1)
+        Image::factory(5)
             ->create();
     }
 }

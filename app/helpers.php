@@ -12,14 +12,6 @@ if (! function_exists('user')) {
     }
 }
 
-if (! function_exists('explodeCoordinates')) {
-    function explodeCoordinates($location): ?array
-    {
-        return explode(',', $location);
-
-    }
-}
-
 if (! function_exists('qrCodeCreate')) {
     function qrCodeCreate(): string
     {
