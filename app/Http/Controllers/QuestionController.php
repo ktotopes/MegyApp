@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionRequest;
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -15,9 +16,6 @@ class QuestionController extends Controller
             ...$request->validated(),
         ]);
 
-        return response()->json([
-            'message' => 'Question created successfully.',
-            'question' => $question,
-        ]);
+        return response()->json(new QuestionResource($question), 201);
     }
 }

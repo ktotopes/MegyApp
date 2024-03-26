@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('fio');
             $table->string('email');
             $table->string('phone');
-            $table->string('delivery')->default(OrderDelivery::СДЭК);
+            $table->string('delivery')->default(OrderDelivery::CDEK);
 
             $table->string('address');
             $table->point('location');

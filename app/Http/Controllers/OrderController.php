@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\OrderDelivery;
 use App\Http\Requests\OrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Grimzy\LaravelMysqlSpatial\Types\Point;
 
@@ -23,13 +24,10 @@ class OrderController extends Controller
             'price' => 2999,
             'discountPrice' => 2999 * 0.6,
             'address' => $request->input('address'),
-            'delivery' => $delivery->delivery(),
+            'delivery' => $delivery->value,
             'location' => new Point($location[0][0], $location[0][1]),
         ]);
 
-        return response()->json([
-            'message' => 'Order created successfully..',
-            'order' => $order,
-        ]);
+        return response()->json(new OrderResource($order), 201);
     }
 }

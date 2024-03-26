@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
 
-            $table->string('answer');
+            $table->string('question');
+            $table->string('answer')->nullable();
 
             $table->timestamps();
         });

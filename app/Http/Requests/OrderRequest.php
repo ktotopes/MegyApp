@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enum\OrderDelivery;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OrderRequest extends FormRequest
 {
@@ -29,8 +30,8 @@ class OrderRequest extends FormRequest
             'fio' => ['required','string'],
             'phone' => ['required','string','min:9'],
             'email' => ['required','string','email'],
-            'delivery.*' => ['required','in_array:OrderDelivery'],
-            'name' => ['required','string'],
+            'delivery' => ['required','string',Rule::in(OrderDelivery::cases())],
+            'address' => ['required','string'],
         ];
     }
 }

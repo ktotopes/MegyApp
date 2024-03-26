@@ -18,6 +18,7 @@ class QuestionFactory extends Factory
     {
         return [
             'answer' => $this->faker->text(100),
+            'question' => $this->faker->text(100),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\PageController;
+use App\Admin\Controllers\QuestionController;
 use Illuminate\Routing\Router;
 
 Admin::routes();
@@ -16,5 +17,6 @@ Route::group([
     $router->get('/', 'HomeController@index')->name('home');
     $router->resource('users', UserController::class);
     $router->resource('pages', PageController::class);
+    $router->resource('questions', QuestionController::class);
 
 });

@@ -22,7 +22,7 @@ class QuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'answer' => ['required','string'],
+            'question' => ['required','string'],
         ];
     }
 }
