@@ -1,5 +1,12 @@
 <?php
 
+use App\Enum\OrderDelivery;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\InfoTheDeceasedController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,20 +21,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/page', [PageController::class, 'index'])->name('page.index');
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::post('/question', [QuestionController::class, 'store'])->name('question.store');
+Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
+
+Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
+Route::get('/available-delivery', function () {
+    return response()->json(OrderDelivery::cases(), 200, []);
+});
+
+Route::get('/info-the-deceased/{infoTheDeceased}', [InfoTheDeceasedController::class, 'show'])
+    ->name('info_the_deceased.show');
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/checkout', [\App\Http\Controllers\OrderController::class, 'store'])->name('order.store');
+    Route::post('/update/info-the-deceased', [InfoTheDeceasedController::class, 'update'])
+        ->name('info_the_deceased.update');
 
-    Route::post('/question', [\App\Http\Controllers\QuestionController::class, 'store'])->name('question.store');
-
-    Route::post('/update/infoTheDeceased', [\App\Http\Controllers\InfoTheDeceasedController::class, 'update'])
-        ->name('infoTheDeceased.update');
-
-    Route::get('/delete/photo/{id}', [\App\Http\Controllers\InfoTheDeceasedController::class, 'destroyImg'])
-        ->name('img-destroy');
-    Route::get('/delete/video/{id}', [\App\Http\Controllers\InfoTheDeceasedController::class, 'destroyVideo'])
-        ->name('video-destroy');
-
-    Route::get('/page', [\App\Http\Controllers\PageController::class, 'index'])->name('page.index');
+    Route::delete('/delete/photo/{image}', [InfoTheDeceasedController::class, 'destroyImg'])
+        ->name('delete.photo');
+    Route::delete('/delete/video/{video}', [InfoTheDeceasedController::class, 'destroyVideo'])
+        ->name('delete.video');
 
     Route::get('/user', function (Request $request) {
         return $request->user();

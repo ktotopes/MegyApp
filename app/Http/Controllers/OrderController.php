@@ -20,7 +20,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             ...$request->validated(),
-            'user_id' => $user->id,
+            'user_id' => $user->id ?? null,
             'price' => 2999,
             'discountPrice' => 2999 * 0.6,
             'address' => $request->input('address'),

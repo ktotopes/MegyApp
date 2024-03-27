@@ -77,8 +77,8 @@ class PageController extends AdminController
 
             $form->embeds('data', function ($form) {
                 $form->text('title')->rules('required|string|min:3');
-                $form->email('email_1')->rules('required|email');
-                $form->mobile('phone_1')->rules('required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10');
+                //$form->email('email_1')->rules('required|email');
+                //$form->mobile('phone_1')->rules('required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10');
             });
 
         })->tab('Banner_1', function ($form) use ($infoCount) {

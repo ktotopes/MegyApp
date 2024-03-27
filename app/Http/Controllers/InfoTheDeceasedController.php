@@ -59,8 +59,13 @@ class InfoTheDeceasedController extends Controller
 
         qrCodeCreate();
 
+        return response()->json(['message' => 'InfoTheDeceased updated successfully..']);
+    }
+
+    public function show(InfoTheDeceased $infoTheDeceased)
+    {
         return response()->json(
-            new InfoTheDeceasedResource($info->load('videos', 'images', 'texts')),
+            new InfoTheDeceasedResource($infoTheDeceased->load('videos', 'images', 'texts')),
         );
     }
 
@@ -87,23 +92,15 @@ class InfoTheDeceasedController extends Controller
         return response()->json(['message' => 'DeadManText created successfully..']);
     }
 
-    public function destroyImg($id)
+    public function destroyImg(Image $image)
     {
-        $image = Image::findOrFail($id);
-        if (File::exists(public_path($image->path))) {
-            File::delete(public_path($image->path));
-        }
         $image->delete();
 
         return response()->json(['message' => 'Image deleted successfully..']);
     }
 
-    public function destroyVideo($id)
+    public function destroyVideo(Video $video)
     {
-        $video = Video::findOrFail($id);
-        if (File::exists(public_path($video->path))) {
-            File::delete(public_path($video->path));
-        }
         $video->delete();
 
         return response()->json(['message' => 'Video deleted successfully..']);

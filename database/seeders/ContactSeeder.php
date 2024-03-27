@@ -13,7 +13,40 @@ class ContactSeeder extends Seeder
      */
     public function run(): void
     {
-        Contact::factory(1)
-            ->create();
+        $arr = [
+            [
+                'name' => 'Телефон',
+                'key' => 'phone',
+                'type' => 'tel.',
+            ],
+            [
+                'name' => 'Email',
+                'key' => 'email',
+                'type' => 'mailto:',
+            ],
+            [
+                'name' => 'Telegram',
+                'key' => 'telegram',
+                'type' => 'https://t.me/',
+            ],
+            [
+                'name' => 'Viber',
+                'key' => 'viber',
+                'type' => 'viber://chat?number=',
+            ],
+            [
+                'name' => 'WhatsApp',
+                'key' => 'whatsapp',
+                'type' => 'whatsapp://send?phone=',
+            ],
+        ];
+
+        foreach ($arr as $items) {
+            Contact::create([
+                'name' => $items['name'],
+                'key' => $items['key'],
+                'type' => $items['type'],
+            ]);
+        }
     }
 }
