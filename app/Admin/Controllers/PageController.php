@@ -171,7 +171,14 @@ class PageController extends AdminController
                 $form->text('company_title_1')->rules('required|string|min:3');
                 $form->text('company_text_1')->rules('required|string|min:3');
             });
-        });
+        })->tab('Ceo', function ($form) {
+
+            $form->embeds('data', function ($form) {
+                $form->text('title_ceo')->rules('required|string|min:1');
+                $form->text('description_ceo')->rules('required|string|min:3');
+                $form->text('h1_ceo')->rules('required|string|min:1');
+            });
+        });;
 
         return $form;
     }

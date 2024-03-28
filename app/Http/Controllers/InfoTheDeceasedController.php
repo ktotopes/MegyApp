@@ -64,7 +64,7 @@ class InfoTheDeceasedController extends Controller
     public function show(InfoTheDeceased $infoTheDeceased)
     {
         return response()->json(
-            new InfoTheDeceasedResource($infoTheDeceased->load('videos', 'images', 'texts')),
+            (new InfoTheDeceasedResource($infoTheDeceased->load('videos', 'images', 'texts')))
         );
     }
 

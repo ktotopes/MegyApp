@@ -66,10 +66,11 @@ class PageResource extends JsonResource
             ],
             'rating_title' => $this->data['rating_title_1'],
             'rating_text' => $this->data['rating_text_1'],
-            'phone' => $this->data['phone_1'],
-            'email' => $this->data['email_1'],
             'company_title' => $this->data['company_title_1'],
             'company_text' => $this->data['company_text_1'],
+            'title_ceo' => $this->data['title_ceo'],
+            'description_ceo' => $this->data['description_ceo'],
+            'h1_ceo' => $this->data['h1_ceo'],
         ];
     }
 }
