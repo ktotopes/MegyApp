@@ -20,8 +20,8 @@ class InfoTheDeceasedRequest extends FormRequest
             'fio' => 'required|string|min:3',
             'title' => 'required|string|min:3',
             'coordinates' => ['required', 'string', new AddressRule()],
-            'dateDeath' => ['required', 'date', 'date_format:d.m.Y'],
-            'dateBirthday' => ['required', 'date', 'date_format:d.m.Y'],
+            'date_death' => ['required', 'date', 'date_format:d.m.Y'],
+            'date_birthday' => ['required', 'date', 'date_format:d.m.Y'],
         ];
     }
 }

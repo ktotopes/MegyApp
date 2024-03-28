@@ -24,8 +24,8 @@ class InfoTheDeceasedFactory extends Factory
             'slug' => $this->faker->slug,
             'photo' => $this->faker->imageUrl(640, 480, 'animals', true),
             'title' => $this->faker->title,
-            'dateDeath' => $this->faker->date(),
-            'dateBirthday' => $this->faker->date(),
+            'date_death' => $this->faker->date(),
+            'date_birthday' => $this->faker->date(),
             'coordinates' => $this->faker->address,
         ];
     }

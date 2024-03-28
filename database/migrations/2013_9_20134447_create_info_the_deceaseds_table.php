@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('fio')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->dateTime('dateDeath')->nullable();
-            $table->dateTime('dateBirthday')->nullable();
+            $table->dateTime('date_death')->nullable();
+            $table->dateTime('date_birthday')->nullable();
             $table->string('coordinates')->nullable();
 
             $table->timestamps();

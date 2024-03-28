@@ -2,6 +2,7 @@
 
 use App\Enum\OrderDelivery;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FilteredInfoTheDeceasedController;
 use App\Http\Controllers\InfoTheDeceasedController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -33,6 +34,8 @@ Route::get('/available-delivery', function () {
 
 Route::get('/info-the-deceased/{infoTheDeceased}', [InfoTheDeceasedController::class, 'show'])
     ->name('info_the_deceased.show');
+Route::get('filter/info-the-deceased', [FilteredInfoTheDeceasedController::class, 'filter'])
+    ->name('info_the_deceased.filter');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/update/info-the-deceased', [InfoTheDeceasedController::class, 'update'])

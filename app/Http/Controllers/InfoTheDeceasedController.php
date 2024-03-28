@@ -9,7 +9,6 @@ use App\Models\DeadManText;
 use App\Models\Image;
 use App\Models\InfoTheDeceased;
 use App\Models\Video;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -48,8 +47,8 @@ class InfoTheDeceasedController extends Controller
             'photo' => str_replace('public', 'storage', $photoPath),
             'background_img' => str_replace('public', 'storage', $backgroudImgPath),
             'slug' => Str::slug($request->input('title')),
-            'dateDeath' => $request->input('dateDeath'),
-            'dateBirthday' => $request->input('dateBirthday'),
+            'date_death' => $request->input('dateDeath'),
+            'date_birthday' => $request->input('dateBirthday'),
             'coordinates' => new Point($location[0][0], $location[0][1]),
         ]);
 
