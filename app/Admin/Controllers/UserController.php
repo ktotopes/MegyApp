@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\InfoTheDeceased;
+use App\Models\Deceased;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -70,7 +70,7 @@ class UserController extends AdminController
     {
         $form = new Form(new User());
 
-        $info_the_deceased = new InfoTheDeceased();
+        $info_the_deceased = new Deceased();
         $info_the_deceased->save();
 
         $form->hidden('info_the_deceased_id')->value($info_the_deceased->id);

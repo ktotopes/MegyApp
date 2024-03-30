@@ -3,7 +3,7 @@
 use App\Enum\OrderDelivery;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FilteredInfoTheDeceasedController;
-use App\Http\Controllers\InfoTheDeceasedController;
+use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PartnerController;
@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//$t = \App\Models\User::where('email', 'user@gmail.com')->first()->createToken('api');
+//dd($t->plainTextToken);
+
 Route::get('/page', [PageController::class, 'index'])->name('page.index');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
 Route::post('/question', [QuestionController::class, 'store'])->name('question.store');
@@ -29,22 +32,25 @@ Route::get('/partners', [PartnerController::class, 'index'])->name('partners.ind
 
 Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/available-delivery', function () {
-    return response()->json(OrderDelivery::cases(), 200, []);
+    return response()->json(OrderDelivery::cases());
 });
 
-Route::get('/info-the-deceased/{infoTheDeceased}', [InfoTheDeceasedController::class, 'show'])
-    ->name('info_the_deceased.show');
-Route::get('filter/info-the-deceased', [FilteredInfoTheDeceasedController::class, 'filter'])
-    ->name('info_the_deceased.filter');
+Route::get('/deceased', [DeceasedController::class, 'index'])->name('deceased.index');
+Route::get('/deceased/{deceased}', [DeceasedController::class, 'show'])->name('deceased.show');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/update/info-the-deceased', [InfoTheDeceasedController::class, 'update'])
-        ->name('info_the_deceased.update');
+    Route::group(['prefix' => 'deceased-update', 'as' => 'deceased-update.'], function () {
+        Route::post('/', [DeceasedController::class, 'update'])->name('info');
 
-    Route::delete('/delete/photo/{image}', [InfoTheDeceasedController::class, 'destroyImg'])
-        ->name('delete.photo');
-    Route::delete('/delete/video/{video}', [InfoTheDeceasedController::class, 'destroyVideo'])
-        ->name('delete.video');
+        Route::post(
+            '/blocks/{block}/images/{image}/remove',
+            [DeceasedController::class, 'imageDelete'],
+        )->name('image-delete');
+        Route::post(
+            '/blocks/{block}/videos/{video}/remove',
+            [DeceasedController::class, 'videoDelete'],
+        )->name('video-delete');
+    });
 
     Route::get('/user', function (Request $request) {
         return $request->user();

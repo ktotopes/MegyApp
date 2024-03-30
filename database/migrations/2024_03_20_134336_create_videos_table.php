@@ -6,26 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
 
             $table->string('path');
-            $table->integer('videoable_id');
-            $table->string('videoable_type');
+            $table->string('description')->nullable();
+
+            $table->unsignedBigInteger('entity_id');
+            $table->string('entity_type');
 
 
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('videos');

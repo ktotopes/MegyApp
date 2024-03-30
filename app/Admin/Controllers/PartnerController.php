@@ -26,11 +26,8 @@ class PartnerController extends AdminController
     {
         $grid = new Grid(new Partner());
 
-        $grid->column('id', __('Id'));
         $grid->column('name', __('Name'));
         $grid->column('link', __('Link'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
 
         return $grid;
     }

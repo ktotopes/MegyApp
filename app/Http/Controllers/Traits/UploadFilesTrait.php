@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Traits;
 
 use App\Models\Image;
-use App\Models\InfoTheDeceased;
+use App\Models\Deceased;
 use App\Models\Video;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;

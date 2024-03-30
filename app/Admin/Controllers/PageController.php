@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\InfoTheDeceased;
+use App\Models\Deceased;
 use App\Models\Page;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -63,7 +63,7 @@ class PageController extends AdminController
      */
     protected function form()
     {
-        $infoCount = InfoTheDeceased::get()->count();
+        $infoCount = Deceased::get()->count();
 
         $page = Page::query()->first() ?? Page::create(['page' => '']);
         $arr = $page->data;

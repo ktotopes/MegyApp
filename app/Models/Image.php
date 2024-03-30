@@ -14,7 +14,7 @@ class Image extends Model
 
     protected $guarded = [];
 
-    public function imageable(): MorphTo
+    public function entity(): MorphTo
     {
         return $this->morphTo();
     }

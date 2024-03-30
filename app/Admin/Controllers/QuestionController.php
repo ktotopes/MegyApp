@@ -26,11 +26,16 @@ class QuestionController extends AdminController
     {
         $grid = new Grid(new Question());
 
-        $grid->column('id', __('Id'));
+        $grid->id()->sortable();
         $grid->column('question', __('Question'));
         $grid->column('answer', __('Answer'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->created_at()->sortable()->display(function ($created_at) {
+            return date('Y-m-d H:i:s', strtotime($created_at));
+        });
+
+        $grid->actions(function ($actions) {
+            $actions->disableView();
+        });
 
         return $grid;
     }

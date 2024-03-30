@@ -45,13 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function orders():HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function infoTheDeceased():BelongsTo
+    public function deceased(): HasOne
     {
-        return $this->belongsTo(InfoTheDeceased::class);
+        return $this->hasOne(Deceased::class);
     }
 }

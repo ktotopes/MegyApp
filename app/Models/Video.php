@@ -14,7 +14,7 @@ class Video extends Model
 
     protected $guarded = [];
 
-    public function videoable(): MorphTo
+    public function entity(): MorphTo
     {
         return $this->morphTo();
     }
