@@ -11,6 +11,7 @@ class DeceasedResource extends JsonResource
     {
         return [
             ...parent::toArray($request),
+            'qr_code' => url($this->qr_code),
             'title_ceo' => $this->title,
             'description_ceo' => $this->texts[0]['text'] ?? '',
             'h1_ceo' => mb_strtoupper($this->title),

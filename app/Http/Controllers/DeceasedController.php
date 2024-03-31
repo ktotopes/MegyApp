@@ -3,47 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Enum\BlocksType;
-use App\Http\Controllers\Traits\UploadFilesTrait;
 use App\Http\Requests\DeceasedRequest;
 use App\Http\Resources\DeceasedResource;
 use App\Models\Block;
 use App\Models\Deceased;
 use App\Models\Image;
 use App\Models\Video;
-use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
 
 class DeceasedController extends Controller
 {
-    use UploadFilesTrait;
-
     public function index(Request $request)
     {
         $filtered = Deceased::query()
-            ->where(
-                fn(Builder $query) => $query
-                    ->when($request->has('from_birthday'), fn(Builder $query) => $query
-                        ->where('date_birthday', '>=', $request->date('from_birthday')))
-                    ->when($request->has('to_birthday'), fn(Builder $query) => $query
-                        ->where('date_birthday', '<=', $request->date('to_birthday'))),
-            )
-            ->where(
-                fn(Builder $query) => $query
-                    ->when($request->has('from_death'), fn(Builder $query) => $query
-                        ->where('date_death', '>=', $request->date('from_death')))
-                    ->when($request->has('to_death'), fn(Builder $query) => $query
-                        ->where('date_death', '<=', $request->date('to_death'))),
-            )
-            ->where('fio', 'LIKE', '%' . $request->string('fio') . '%')
             ->get();
 
-        return response()->json(new DeceasedResource($filtered));
+        return response()->json(DeceasedResource::collection($filtered));
     }
 
     public function show(Deceased $deceased)
@@ -75,11 +53,11 @@ class DeceasedController extends Controller
 
                 foreach ($block[$key] as $item) {
                     if ($item['item'] instanceof UploadedFile) {
-                        $fileName = now()->format('Y-m-d_H-i-s') . '_' . $item['item']->getClientOriginalName() . '.' . $item['item']->getClientOriginalExtension();
-                        //    $item->storeAs(
-                        //        "storage/$key/",
-                        //        $fileName,
-                        //    );
+                        $fileName = now()->format('Y-m-d_H-i-s') . '_' . $item['item']->getClientOriginalName();
+                            $item['item']->storeAs(
+                                "public/$key/",
+                                $fileName,
+                            );
                         $data = [
                             'path' => "storage/{$key}/{$fileName}",
                         ];
@@ -99,7 +77,7 @@ class DeceasedController extends Controller
             }
         });
 
-        //qrCodeCreate();
+        qrCodeCreate();
 
         return response()->json(['message' => 'InfoTheDeceased updated successfully..']);
     }

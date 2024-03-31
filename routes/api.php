@@ -2,7 +2,6 @@
 
 use App\Enum\OrderDelivery;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\FilteredInfoTheDeceasedController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -42,11 +41,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' => 'deceased-update', 'as' => 'deceased-update.'], function () {
         Route::post('/', [DeceasedController::class, 'update'])->name('info');
 
-        Route::post(
+        Route::delete(
             '/blocks/{block}/images/{image}/remove',
             [DeceasedController::class, 'imageDelete'],
         )->name('image-delete');
-        Route::post(
+        Route::delete(
             '/blocks/{block}/videos/{video}/remove',
             [DeceasedController::class, 'videoDelete'],
         )->name('video-delete');
