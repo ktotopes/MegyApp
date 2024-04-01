@@ -27,6 +27,8 @@ class DeceasedFilterScope implements Scope
                     ->when(request()->has('to_death'), fn(Builder $query) => $query
                         ->where('date_death', '<=', request()->date('to_death'))),
             )
-            ->where('fio', 'LIKE', '%' . request()->string('fio') . '%');
+            ->when(request()->has('fio'), fn(Builder $query) => $query
+                ->where('fio', 'LIKE', '%' . request()->string('fio') . '%'),
+            );
     }
 }

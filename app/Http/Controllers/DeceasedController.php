@@ -8,7 +8,9 @@ use App\Http\Resources\DeceasedResource;
 use App\Models\Block;
 use App\Models\Deceased;
 use App\Models\Image;
+use App\Models\User;
 use App\Models\Video;
+use App\Observers\UserObserver;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
@@ -76,8 +78,6 @@ class DeceasedController extends Controller
                 }
             }
         });
-
-        qrCodeCreate();
 
         return response()->json(['message' => 'InfoTheDeceased updated successfully..']);
     }

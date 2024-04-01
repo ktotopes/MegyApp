@@ -1,36 +1,34 @@
 <?php
 
 use App\Enum\BlocksType;
+use App\Models\Deceased;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-if (!function_exists('user')) {
+if (! function_exists('user')) {
     function user(): ?User
     {
         return Auth::user() ?? null;
     }
 }
 
-if (!function_exists('deceased')) {
-    function deceased(): ?\App\Models\Deceased
+if (! function_exists('deceased')) {
+    function deceased(): ?Deceased
     {
         return user()->deceased ?? null;
     }
 }
 
-if (!function_exists('qrCodeCreate')) {
-    function qrCodeCreate(): string
+if (! function_exists('qrCodeCreate')) {
+    function qrCodeCreate(Deceased $deceased): string
     {
-        $deceased = deceased();
+        $id = $deceased->slug ?? $deceased->id;
+        $name = Str::random(12);
 
-        if (!$deceased->slug) {
-            return response()->json('Slug not found', 404);
-        }
-
-        $url = url()->full() . '/' . $deceased->slug;
-        $path = 'storage/images/qrCode/' . $deceased->slug . '.png';
+        $url = route('deceased.show', $id);
+        $path = 'storage/images/qrCode/' . $name . '.png';
 
         $pathPhoto = $deceased->blocks()->where('type', BlocksType::Image)->first()
             ?->images()->inRandomOrder()->first()->path ?? null;
@@ -50,7 +48,7 @@ if (!function_exists('qrCodeCreate')) {
                 ->generate($url);
         }
 
-        Storage::put('public/images/qrCode/' . $deceased->slug . '.png', $image);
+        Storage::put('public/images/qrCode/' . $name . '.png', $image);
 
         $deceased->update([
             'qr_code' => $path,

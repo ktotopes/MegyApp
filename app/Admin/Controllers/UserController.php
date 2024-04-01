@@ -2,7 +2,6 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Deceased;
 use App\Models\User;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -70,16 +69,12 @@ class UserController extends AdminController
     {
         $form = new Form(new User());
 
-        $info_the_deceased = new Deceased();
-        $info_the_deceased->save();
-
-        $form->hidden('info_the_deceased_id')->value($info_the_deceased->id);
-
         $form->text('name', __('Name'));
         $form->email('email', __('Email'));
         $form->datetime('email_verified_at', __('Email verified at'))->default(date('Y-m-d H:i:s'));
         $form->password('password')->value(request()->get('password'));
         $form->text('remember_token', __('Remember token'));
+
         return $form;
     }
 }

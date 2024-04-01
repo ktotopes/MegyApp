@@ -1,6 +1,7 @@
 <?php
 
 use App\Admin\Controllers\ContactController;
+use App\Admin\Controllers\DocumentController;
 use App\Admin\Controllers\PartnerController;
 use App\Admin\Controllers\UserController;
 use App\Admin\Controllers\PageController;
@@ -22,5 +23,5 @@ Route::group([
     $router->resource('questions', QuestionController::class);
     $router->resource('contacts', ContactController::class);
     $router->resource('partners', PartnerController::class);
-
+    $router->resource('documents', DocumentController::class);
 });

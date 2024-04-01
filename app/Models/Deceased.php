@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Models\Scopes\DeceasedFilterScope;
+use App\Observers\DeceasedObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ScopedBy([DeceasedFilterScope::class])]
+#[ObservedBy([DeceasedObserver::class])]
 class Deceased extends Model
 {
     use HasFactory;
@@ -22,11 +25,6 @@ class Deceased extends Model
     public function blocks(): HasMany
     {
         return $this->hasMany(Block::class);
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
     }
 
     public function clearGarbage(): void {
