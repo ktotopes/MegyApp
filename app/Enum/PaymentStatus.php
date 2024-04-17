@@ -6,8 +6,8 @@ namespace App\Enum;
 
 enum PaymentStatus: string
 {
-    case pending = 'pending';
-    case waiting_for_capture = 'waiting_for_capture';
-    case succeeded = 'succeeded';
-    case canceled = 'canceled';
+    case Pending = 'pending';
+    case WaitingForCapture = 'waiting_for_capture';
+    case Succeeded = 'succeeded';
+    case Canceled = 'canceled';
 }

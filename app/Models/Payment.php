@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enum\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +14,7 @@ class Payment extends Model
         'payment_method' => 'array',
         'authorization_details' => 'array',
         'confirmation' => 'array',
+        'status' => PaymentStatus::class,
     ];
 
     public function order(): BelongsTo

@@ -31,7 +31,7 @@ Route::post('/question', [QuestionController::class, 'store'])->name('question.s
 Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
 
 Route::get('/{order}/payment', [PaymentController::class, 'createPayment'])->name('payment-create');
-Route::get('/payment/{id}', [PaymentController::class, 'getPayment'])->name('payment-get');
+Route::get('/payment/{payment:uid}', [PaymentController::class, 'getPayment'])->name('payment-get');
 
 Route::post('/checkout', [OrderController::class, 'store'])->name('order.store');
 Route::get('/available-delivery', function () {

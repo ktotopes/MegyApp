@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\PaymentStatus;
 use App\Http\Resources\PartnerResource;
+use App\Http\Resources\PaymentResource;
 use App\Models\Order;
 use App\Models\Payment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Service\PaymentService;
+use Illuminate\Http\Resources\Json\JsonResource;
 use YooKassa\Client;
 use YooKassa\Common\Exceptions\ApiConnectionException;
 use YooKassa\Common\Exceptions\ApiException;
@@ -35,7 +39,7 @@ class PaymentController extends Controller
      * @throws ApiConnectionException
      * @throws UnauthorizedException
      */
-    public function createPayment(Order $order)
+    public function createPayment(Order $order): JsonResponse
     {
         $client = PaymentService::getClient();
 
@@ -64,7 +68,7 @@ class PaymentController extends Controller
                 'uid' => $response->id,
                 'account_id' => $response->recipient->account_id,
                 'gateway_id' => $response->recipient->gateway_id,
-                // 'status' => $response->status,
+                'status' => $response->status,
                 'amount' => $response->amount->value,
                 'currency' => $response->amount->currency,
                 'description' => $response->description,
@@ -82,7 +86,6 @@ class PaymentController extends Controller
             $payment->save();
         }
 
-        //  return response()->json(new PartnerResource($response));
         return response()->json([
             'confirmation_url' => $response->confirmation->confirmationUrl,
         ]);
@@ -99,21 +102,18 @@ class PaymentController extends Controller
      * @throws TooManyRequestsException
      * @throws UnauthorizedException
      */
-    public function getPayment($id)
+    public function getPayment(Payment $payment): JsonResponse
     {
         $client = PaymentService::getClient();
 
-        $paymentId = $id;
-        $paymentInfo = $client->getPaymentInfo($paymentId);
+        $paymentInfo = $client->getPaymentInfo($payment->uid);
 
-        $payment = Payment::where('uid', $paymentId)->first();
-
-        if (isset($payment) && $paymentInfo !== $payment->status) {
+        if ($paymentInfo?->status !== $payment->status) {
             $payment->update([
-                'status' => $paymentInfo->status,
+                'status' => PaymentStatus::tryFrom($paymentInfo->status),
             ]);
         }
 
-        return response()->json(new PartnerResource($paymentInfo));
+        return response()->json(new PaymentResource($payment));
     }
 }

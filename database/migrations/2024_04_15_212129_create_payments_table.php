@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,13 +20,13 @@ return new class extends Migration
             $table->string('account_id')->nullable();
             $table->string('gateway_id')->nullable();
 
-            $table->string('status')->default(\App\Enum\PaymentStatus::pending->value);
-            $table->string('amount')->nullable();
+            $table->string('status')->default(PaymentStatus::Pending);
+            $table->decimal('amount')->nullable();
             $table->string('currency')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('test')->default(false);
-            $table->boolean('paid');
-            $table->boolean('refundable');
+            $table->boolean('paid')->default(false);
+            $table->boolean('refundable')->default(false);
 
             $table->json('metadata')->nullable();
             $table->json('payment_method')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->json('confirmation')->nullable();
 
 
-            $table->string('expires_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });
     }
